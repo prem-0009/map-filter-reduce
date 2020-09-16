@@ -3,10 +3,11 @@ console.clear();
 //     b. Using reduce subtract all of the numbers in the array from an initial number 200
 let numbers = [12, 3, 5, 3, 5, 4];
 
-let subtract = numbers.reduce((acc, curr) => {
-  return acc - curr;
-}, 200);
-console.log("one: done", subtract);
+let subtract = function(arr) {
+  return numbers.reduce((acc, curr) =>acc - curr, 200);
+}
+
+console.log("one: done", subtract(numbers));
 
 // 2.  Add 500 to each bottle of red wine, then add all the red wine bottles together. Use all three methods we learned today and use method chaining.
 let data = [
@@ -69,27 +70,29 @@ const nums3 = [2, 1222, 3444, 7254, 83.04444, 1111]; // should be 2186
 const nums4 = [2, 1222, "sneeze", 3444, 7254, 8, "abacus"]; //should be 1734
 const nums5 = ["q", 2.3];
 
-let three = nums1
-  .reduce((acc, curr, i, arr) => {
-    if (Number.isInteger(curr)) {
-      acc.push(curr);
-    }
-    if (typeof curr === "string") {
-      acc.push(curr.charCodeAt(0));
-    }
+let three = function (arr) {
+  return arr
+    .reduce((acc, curr, i, arr) => {
+      if (Number.isInteger(curr)) {
+        acc.push(curr);
+      }
+      if (typeof curr === "string") {
+        acc.push(curr.charCodeAt(0));
+      }
 
-    return acc;
-  }, [])
-  .reduce((acc, curr, i, arr) => {
-    acc += curr;
-    if ((i === arr.length - 1)) {  
-      return acc / arr.length;
-    } else {
       return acc;
-    }
-  },0);
+    }, [])
+    .reduce((acc, curr, i, arr) => {
+      acc += curr;
+      if (i === arr.length - 1) {
+        return acc / arr.length;
+      } else {
+        return acc;
+      }
+    }, 0);
+};
 
-console.log("three: done", three);
+console.log("three: done", three(nums1));
 // let hi =
 // 4.  Choose all the companies that started after 2000 and sort them ascending
 let businesses = [
@@ -102,20 +105,22 @@ let businesses = [
   { company: "Citibank", startYear: 2010 },
 ];
 
-let after2000 = businesses
-  .map((item, i, arr) => {
-    // Object.keys(arr)
-    return item.company;
-  })
-  .sort()
-  .map((item, i, arr) => {
-    let result = {};
-    result.company = item;
+let after2000 = function (arr) {
+  return arr
+    .map((item) => {
+      
+      return item.company;
+    })
+    .sort()
+    .map((item, i, currArr) => {
+      let result = {};
+      result.company = item;
+      result.startYear = arr[i].startYear;
 
-    return result;
-  });
-
-console.log(after2000);
+      return result;
+    }, arr);
+};
+console.log("four: done\n", after2000(businesses));
 
 // 5.  COMPUTE INTEGERS
 
@@ -143,14 +148,16 @@ console.log("five: done", five);
 const arr1 = [5, 3, 2, 5, 6]; //should be {'5':2,'3':1,'2':1,'6':1}
 const arr2 = [3, 1, 2, 5, 2, 5, 7, 5]; // should be { '1': 1, '2': 2, '3': 1, '5': 3, '7': 1 }
 
-let six = arr2.reduce((acc, curr, i, arr) => {
-  if (acc[curr] === undefined) {
-    acc[curr] = 1;
-  } else {
-    acc[curr] = acc[curr] + 1;
-  }
+let countRepetition = function (arr) {
+  return arr.reduce((acc, curr, i, arr) => {
+    if (acc[curr] === undefined) {
+      acc[curr] = 1;
+    } else {
+      acc[curr] = acc[curr] + 1;
+    }
 
-  return acc;
-}, {});
+    return acc;
+  }, {});
+};
 
-console.log("six: done", six);
+console.log("six: done", countRepetition(arr1));
