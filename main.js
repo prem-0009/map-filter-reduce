@@ -3,9 +3,9 @@ console.clear();
 //     b. Using reduce subtract all of the numbers in the array from an initial number 200
 let numbers = [12, 3, 5, 3, 5, 4];
 
-let subtract = function(arr) {
-  return numbers.reduce((acc, curr) =>acc - curr, 200);
-}
+let subtract = function (arr) {
+  return numbers.reduce((acc, curr) => acc - curr, 200);
+};
 
 console.log("one: done", subtract(numbers));
 
@@ -50,11 +50,11 @@ let data = [
 ];
 
 let add500ToEach = data
+  .filter((element) => element.wineColor === "red")
   .map((item) => {
     item.numBottles += 500;
     return item;
   })
-  .filter((element) => element.wineColor === "red")
   .reduce((acc, curr) => acc + curr.numBottles, 0); //acc becomes 0 and curr.numBottles starts from the beginning
 
 console.log("two: done", add500ToEach);
@@ -68,32 +68,20 @@ const nums1 = [8, 21.3, 16, 55, 22, 44]; // should be 27
 const nums2 = [11.12, 43, 56.22, 78, 98, 11]; // should be 49
 const nums3 = [2, 1222, 3444, 7254, 83.04444, 1111]; // should be 2186
 const nums4 = [2, 1222, "sneeze", 3444, 7254, 8, "abacus"]; //should be 1734
-const nums5 = ["q", 2.3];
+const nums5 = [2,4,3, 'abc'];
 
-let three = function (arr) {
-  return arr
-    .reduce((acc, curr, i, arr) => {
-      if (Number.isInteger(curr)) {
-        acc.push(curr);
-      }
-      if (typeof curr === "string") {
-        acc.push(curr.charCodeAt(0));
-      }
+const three = function(arr){
+  return Math.floor(arr.map((item)=>
+     typeof item === 'string' ? item = item.charCodeAt(0) : item = item
+  ).reduce((acc, curr)=>(acc+curr))/arr.length)  //?????????????
+}
 
-      return acc;
-    }, [])
-    .reduce((acc, curr, i, arr) => {
-      acc += curr;
-      if (i === arr.length - 1) {
-        return acc / arr.length;
-      } else {
-        return acc;
-      }
-    }, 0);
-};
+
+
+
 
 console.log("three: done", three(nums1));
-// let hi =
+
 // 4.  Choose all the companies that started after 2000 and sort them ascending
 let businesses = [
   { company: "VISA", startYear: 2000 },
@@ -107,17 +95,15 @@ let businesses = [
 
 let after2000 = function (arr) {
   return arr
-    .map((item) => {
-      
-      return item.company;
-    })
-    .sort()
-    .map((item, i, currArr) => {
+    .map((item) => item.company).sort() //get an array of values of businesses.company & sorting it alphabetically
+    .map((item, i, currArr) => {      //getting obj
       let result = {};
       result.company = item;
       result.startYear = arr[i].startYear;
 
       return result;
+      
+
     }, arr);
 };
 console.log("four: done\n", after2000(businesses));
