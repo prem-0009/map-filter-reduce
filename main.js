@@ -68,17 +68,17 @@ const nums1 = [8, 21.3, 16, 55, 22, 44]; // should be 27
 const nums2 = [11.12, 43, 56.22, 78, 98, 11]; // should be 49
 const nums3 = [2, 1222, 3444, 7254, 83.04444, 1111]; // should be 2186
 const nums4 = [2, 1222, "sneeze", 3444, 7254, 8, "abacus"]; //should be 1734
-const nums5 = [2,4,3, 'abc'];
+const nums5 = [2, 4, 3, "abc"];
 
-const three = function(arr){
-  return Math.floor(arr.map((item)=>
-     typeof item === 'string' ? item = item.charCodeAt(0) : item = item
-  ).reduce((acc, curr)=>(acc+curr))/arr.length)  //?????????????
-}
-
-
-
-
+const three = function (arr) {
+  return Math.floor(
+    arr
+      .map((item) =>
+        typeof item === "string" ? (item = item.charCodeAt(0)) : (item = item)
+      )
+      .reduce((acc, curr) => acc + curr) / arr.length
+  );
+};
 
 console.log("three: done", three(nums1));
 
@@ -95,16 +95,8 @@ let businesses = [
 
 let after2000 = function (arr) {
   return arr
-    .map((item) => item.company).sort() //get an array of values of businesses.company & sorting it alphabetically
-    .map((item, i, currArr) => {      //getting obj
-      let result = {};
-      result.company = item;
-      result.startYear = arr[i].startYear;
-
-      return result;
-      
-
-    }, arr);
+    .filter((item, i, arr) => item.startYear > 1999)
+    .sort((a, b) => (a.company > b.company ? 1 : -1));
 };
 console.log("four: done\n", after2000(businesses));
 
@@ -116,14 +108,15 @@ console.log("four: done\n", after2000(businesses));
 //       [1,3,25.5,4,32.9] should be [5,15,20]
 let num = [1, 3, 25.5, 4, 32.9];
 
-let five = num.reduce((acc, curr) => {
-  if (Number.isInteger(curr)) {
-    acc.push(curr * 5);
-  }
-  return acc;
-}, []);
+let five = (arr) =>
+  num.reduce((acc, curr) => {
+    if (Number.isInteger(curr)) {
+      acc.push(curr * 5);
+    }
+    return acc;
+  }, []);
 
-console.log("five: done", five);
+console.log("five: done", five(num));
 
 // 6.
 // - Count the number times the same element value appears in an array and display your answer in an object with the element as the key and the number of times as the value
@@ -146,4 +139,4 @@ let countRepetition = function (arr) {
   }, {});
 };
 
-console.log("six: done", countRepetition(arr1));
+console.log("six: done", countRepetition(arr2));
